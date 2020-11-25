@@ -1,3 +1,33 @@
+@keyframes upDownFill {
+  from {
+    height: 0%;
+  }
+
+  to {
+    height: 100%;
+  }
+}
+
+@keyframes leftRightFill {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes sidewayFill {
+  from {
+    left: 50%;
+  }
+
+  to {
+    left: 0;
+  }
+}
+
 .fill-color-btn {
   .bc(transparent);
   position: relative;
@@ -32,12 +62,18 @@
       bottom: 0;
     }
 
-    &:not(:hover):before {
+    &:not(:hover):not(.animated):before {
       height: 0%;
     }
 
-    &:hover:before {
+    &:hover:not(.animated):before {
       height: 100%;
+    }
+
+    &.animated:before {
+      animation-name: upDownFill;
+      animation-duration: 0.3s;
+      animation-fill-mode: forwards;
     }
   }
 
@@ -47,19 +83,24 @@
       top: 0;
     }
 
-    &:not(:hover):before {
+    &:not(:hover):not(.animated):before {
       width: 0%;
     }
 
-    &:hover:before {
+    &:hover:not(.animated):before {
       width: 100%;
+    }
+
+    &.animated:before {
+      animation-name: leftRightFill;
+      animation-duration: 0.3s;
+      animation-fill-mode: forwards;
     }
   }
 
-  &:hover {
+  &:hover,
+  &.animated {
     color: #fff !important;
-    height: 3.62rem;
-    border: 0rem;
   }
 
   &.sideways-fill {
@@ -67,11 +108,17 @@
       width: 100%;
       left: 0;
     }
-    &:not(:hover):before {
+    &:not(:hover):not(.animated):before {
       left: 50%;
     }
-    &:hover:before {
+    &:hover:not(.animated):before {
       left: 0;
+    }
+
+    &.animated:before {
+      animation-name: sidewayFill;
+      animation-duration: 0.3s;
+      animation-fill-mode: forwards;
     }
   }
 
@@ -84,7 +131,8 @@
     }
 
     &.rounded-btn {
-      &:hover {
+      &:hover,
+      &.animated {
         .bc(@color);
       }
     }
@@ -93,7 +141,8 @@
   &.rounded-btn {
     transition: background 0s cubic-bezier(0.39, 0.58, 0.57, 1) 0s;
 
-    &:hover {
+    &:hover,
+    &.animated {
       transition: background 0.03s cubic-bezier(0.39, 0.58, 0.57, 1) 0.15s;
     }
   }
@@ -112,7 +161,8 @@
   &.yellow-btn {
     .colorBtn(@yellow);
 
-    &:hover {
+    &:hover,
+    &.animated {
       color: @darkText !important;
     }
   }
@@ -130,17 +180,18 @@
   }
 
   &.black-btn {
+    .blackBtnDarkMode();
     .colorBtn(@black);
   }
+
   &.white-btn {
+    .whiteBtnDarkMode();
     .colorBtn(@white);
     border-color: @whiteBorder !important;
     color: @darkText;
-    &:hover {
+    &:hover,
+    &.animated {
       color: @darkText !important;
     }
-  }
-  &:not(.block-btn):hover {
-    width: 5.6rem;
   }
 }

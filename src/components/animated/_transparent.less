@@ -9,6 +9,7 @@
 .transparent-btn {
   position: relative;
   transition: 0.3s ease-in-out;
+
   &:hover {
     .bc(transparent);
 
@@ -40,6 +41,11 @@
 
     &.black-btn {
       .onHover(@black, @black);
+
+      [data-theme="dark"] &,
+      &.dark-mode {
+        .onHover(@white, @white);
+      }
     }
 
     &.white-btn {

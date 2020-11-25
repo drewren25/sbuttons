@@ -172,6 +172,11 @@ $(document).ready(function () {
           classes: "bouncy-btn",
         },
         {
+          type: "colored-on-hover",
+          label: "Colored On Hover",
+          classes: "colored-on-hover-btn",
+        },
+        {
           type: "diagonalHover",
           label: "Diagonal Background on Hover",
           classes: "diag-btn",
@@ -354,6 +359,11 @@ $(document).ready(function () {
           type: "splash",
           label: "Splash",
           classes: "splash-btn",
+        },
+        {
+          type: "Spotlight",
+          label: "Spotlight",
+          classes: "spotlight-btn",
         },
         {
           type: "spring",
@@ -799,9 +809,8 @@ $(document).ready(function () {
           totalWrittenClasses = `.${defaultClass} .${button.classes}`;
         if (thisButtonClasses.length) {
           totalClasses += ` ${thisButtonClasses}`;
-          totalWrittenClasses += ` .${thisButtonClasses}`;
+          totalWrittenClasses += ` .${thisButtonClasses.replace(/\s+/g, " .")}`;
         }
-
         // add normal button grid for button
         normalButtonsGrid.append(
           getButtonHtml(

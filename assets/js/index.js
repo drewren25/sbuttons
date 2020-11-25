@@ -8,7 +8,7 @@ $(document).ready(function () {
       left: win.scrollLeft(),
     };
 
-    var marginHeader = 81;
+    var marginHeader = 100;
     var offsetFooter = 200;
 
     viewport.right = viewport.left + win.width();
@@ -26,6 +26,8 @@ $(document).ready(function () {
       viewport.top > bounds.bottom
     );
   };
+
+  $(".sidebar").addClass("sidebar-shiftdown");
 
   // Sidebar Links section
   function checkActiveCategory() {
@@ -47,6 +49,10 @@ $(document).ready(function () {
             $(".submenu-links.show").removeClass("show");
           }
         }
+
+        if (!hasSubmenu) {
+          return false;
+        }
       }
     });
   }
@@ -67,15 +73,25 @@ $(document).ready(function () {
   );
 
   // Navbar toggle here
+
   function checkSidebar() {
     if ($(".main-head").length) {
+      let scroll = $(window).scrollTop();
+      var w = window.innerWidth;
       if (!$(".main-head").isOnScreen()) {
-        $(".sidebar").addClass("scrolling");
+        if (scroll > 450) {
+          $(".sidebar").addClass("scrolling");
+          $(".sidebar").removeClass("sidebar-shiftdown");
+        }
       } else {
         $(".sidebar").removeClass("scrolling");
+        $(".sidebar").addClass("sidebar-shiftdown");
       }
     }
-
+    if (w < 990) {
+      $(".sidebar").addClass("scrolling");
+      //$(".sidebar").css("padding-top", 0%);
+    }
     if ($(".footer").length) {
       if (!$(".footer").isOnScreen()) {
         $(".sidebar").removeClass("height-shift");
@@ -85,6 +101,13 @@ $(document).ready(function () {
     }
   }
 
+  //to display sidebar in mobilescreen
+  window.addEventListener("resize", () => {
+    if (window.innerWidth <= 991) {
+      $(".sidebar").addClass("scrolling");
+    }
+  });
+
   // Back-to-Top button toggles here
   function checkScrollTop() {
     if ($(window).scrollTop() > 100) {
@@ -93,6 +116,15 @@ $(document).ready(function () {
       $(".scroll-top").fadeOut();
     }
   }
+
+  //to make sidebar hide while resizing to large screen
+  window.addEventListener("resize", function () {
+    var w = window.innerWidth;
+    if (w > 991) {
+      $(".sidebar").removeClass("scrolling");
+      checkSidebar();
+    }
+  });
   // Sidebar Links section - end
 
   // Theme section
